@@ -1,0 +1,68 @@
+@startuml
+top to bottom direction
+
+state "Login Screen" as LoginScreen
+
+[*] --> LoginScreen
+LoginScreen:
+LoginScreen: Log into existing account
+LoginScreen: Create new account
+
+state fork_state <<fork>>
+LoginScreen --> fork_state
+fork_state --> Onboarding : Create new account
+fork_state ---> Dashboard : Existing account
+
+
+Onboarding:
+Onboarding: Provide instructions on how to get started
+Onboarding: Log initial metrics, height, weight, age
+Onboarding: Set initial goals
+Onboarding: "Accept/Decline notifications"
+Onboarding --> Dashboard : Account Created
+
+Dashboard:
+Dashboard: View Analytics
+Dashboard: Quick log inputs (weight, food/water, sleep)
+Dashboard --> DailyLog
+Dashboard --> Insights
+Dashboard --> Settings
+Dashboard --> qa
+
+Insights: 
+Insights: Weekly check-in
+Insights: View/Change goals
+Insights: View suggestions
+Insights: View goal history
+Insights: AI analysis on request
+Insights --> Dashboard
+
+state "Quick Add" as qa
+qa: Input food from index
+qa: Input food from barcode
+qa: Input weight
+qa: Input sleep, water, stress level, workload
+qa --> Dashboard
+
+state "Daily Log" as DailyLog
+DailyLog:
+DailyLog: View today's inputs
+DailyLog: View inputs in past dates
+DailyLog: Add/Remove inputs
+DailyLog: View nutrient goals
+DailyLog --> Dashboard
+
+Settings: 
+Settings: Enable/Disable notifications
+Settings: Change any onboarding inputs
+Settings: Change units (metric/imperial)
+Settings: Contact Support
+Settings --> Dashboard
+
+state "Notifications" as n:
+n: Remind user to log inputs
+n --> qa : User taps
+n --> [*] : User dismisses / ignores
+
+
+@enduml
