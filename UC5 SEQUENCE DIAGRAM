@@ -1,0 +1,22 @@
+@startuml
+User -> Dashboard : Tap Quick Add
+Nutrition_Log <- Dashboard: Start New Log
+User <- Nutrition_Log: Display Temp Log
+loop for each intake
+User -> Nutrition_Log: Tap Create New Intake
+User <- Nutrition_Log: Display intake creation
+User -> Nutrition_Log: Enter Intake Details 
+User -> Nutrition_Log: Tap Submit intake
+Nutrition_Log -> Validation_System: Requestion Intake Validation
+Nutrition_Log <- Validation_System: Update Temp Log
+User <- Nutrition_Log: Display Temp Log
+end
+Nutrition_Log <- User: Tap Save Log
+Nutrition_Log -> Log_Database: Save Log to Database
+Log_Database -> Daily_Log: Update Daily Log 
+Log_Database -> Insights: Update Insights
+Log_Database -> Dashboard: Update Daily Log Dash
+Log_Database -> Dashboard: Update Insights Dash
+Dashboard -> User: Display Dashboard
+
+@enduml
