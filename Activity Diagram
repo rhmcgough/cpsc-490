@@ -1,0 +1,21 @@
+@startuml
+start
+
+:User opens Settings;
+:User selects "Export Data";
+
+:System prompts for format;
+:User selects format (CSV/JSON);
+
+:System retrieves user data;
+
+if (Data available?) then (Yes)
+  :System formats data;
+  :Generate export file;
+  :User downloads file;
+else (No)
+  :Show "No data available";
+endif
+
+stop
+@enduml
