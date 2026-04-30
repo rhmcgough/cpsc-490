@@ -1,0 +1,48 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+Table users {
+  user_id integer [pk]
+  username varchar
+  email VARCHAR (255) [not null]
+  password_hashed VARCHAR(255) [not null]
+  created_at timestamp
+
+  height_cm DECIMAL(5,2)
+  weight_kg DECIMAL(5,2)
+  birthday DATE
+  sex VARCHAR (20)
+  activity_level VARCHAR(20)
+}
+
+Table weight {
+  weight_log_id INTEGER [pk]
+  user_id INTEGER [not null]
+  weight_kg DECIMAL(5,2) [not null]
+  log_date TIMESTAMP [default: `now()`]
+  notes TEXT
+}
+
+Table goals {
+  goal_id INTEGER [primary key]
+  user_id INTEGER
+  title VARCHAR
+  body TEXT [note: 'Content of the goal']
+  status VARCHAR
+  created_at TIMESTAMP
+}
+
+Table meals {
+  meal_id integer [pk]
+}
+
+Table insights {
+  insight_id INTEGER [pk]
+
+}
+
+Ref: weight.user_id > users.user_id
+Ref: goals.user_id > users.user_id
