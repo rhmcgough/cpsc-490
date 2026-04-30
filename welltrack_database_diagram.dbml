@@ -18,6 +18,22 @@ Table users {
   activity_level VARCHAR(20)
 }
 
+// Use Case 15
+Ref: notification_preferences.user_id > users.user_id
+table notification_preferences {
+  user_id integer [pk]
+
+  notifications_enabled BOOL [not null]
+
+  logging_reminder_hydration BOOL
+  logging_reminder_meal BOOL
+  logging_reminder_sleep BOOL
+  
+  reminder_hydration TIME
+  reminder_meal_times TIME 
+  reminder_bedtime TIME 
+}
+
 Table weight {
   weight_log_id INTEGER [pk]
   user_id INTEGER [not null]
@@ -42,6 +58,67 @@ Table meals {
 Table insights {
   insight_id INTEGER [pk]
 
+}
+
+// daily log
+Ref: daily_log.user_id > users.user_id
+table daily_log {
+  daily_log_id int [pk]
+  user_id int [not null]
+  daily_log_date date [not null]
+
+  total_calories int
+  total_protein int 
+  total_carbs int 
+  total_fat int 
+  total_water int 
+  total_alcohol int 
+
+  total_steps int
+  total_exercrise_min int 
+
+  total_sleep decimal(5,2) 
+  sleep_quality int
+
+  mood_score decimal(5,2)
+  energy_score decimal(5,2)
+  stress_level decimal(5,2)
+
+  study_time_min int 
+  
+  goals_finished int
+  goals_total int
+}
+
+// based on US food label
+table nutrition_db { 
+  food_id int [pk]
+  food_name VARCHAR [not null]
+  brand_name VARCHAR 
+  barcode int 
+
+  calories int [not null]
+  
+  total_fat_g int
+  saturated_fat_g int
+  trans_fat_g int
+  
+  cholsterol_mg int
+  sodium_mg int
+  
+  total_carbohydrate_g int
+  fiber_g int
+  sugars_g int
+  added_sugars_g int
+  
+  protein_g int
+
+  vitamin_d_mcg int
+  calcium_mg int
+  iron_mg int
+  potassium_mg int
+
+  alcohol_g int
 }
 
 Ref: weight.user_id > users.user_id
